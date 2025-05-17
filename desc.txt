@@ -1,0 +1,32 @@
+
+version 1: 
+    -login / auth
+    -personal feed 
+    -trend item meta-data ( title, desc, growth signal, relevance score )
+    -trend citation
+    -scoring algorithm
+    -search functionality
+    -user preferences ( choose categories )
+    -bookmarking
+    -trend charts
+    -settings  
+
+
+version 2: 
+    -geography based trend map
+    -news feed 
+    -comments 
+
+
+user feed: 
+    -stocks, crypto, nfts, airdrops
+    -products, services 
+    -startups 
+
+signal sources: 
+    -twitter 
+    -google finance
+    -hacker news
+    -product hunt 
+    -coinbase
+    -tiktok / youtube 
