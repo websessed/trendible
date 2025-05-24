@@ -1,15 +1,16 @@
 
 version 1: 
     -login / auth
-    -personal feed 
+    -personal feed ( based on user interest )
     -trend item meta-data ( title, desc, mentions, source, sentiment )
     -sort by ( most mentions, most recent, least mentions )
+    -trend scores
     -bookmarks
     -settings  
 
 
 version 2: 
-    -explore trends via region
+    -trends via region
     -trendible AI
     -news section / feed 
     -comments 
