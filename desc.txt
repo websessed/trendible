@@ -26,3 +26,13 @@ signal sources:
     -google finance
     -coinbase
     -tiktok / youtube 
+    
+
+
+Tech Stack {
+    React, Zustand, TypeScript 
+    Socket, Toastify
+    Node, Express 
+    Playwright
+    Postgre
+}
