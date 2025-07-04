@@ -2,8 +2,10 @@
 version 1: 
     -login / auth
     -personal feed ( based on user interest )
-    -trend item meta-data ( title, desc, mentions, source, sentiment )
+    -trend item meta-data ( title, desc, mentions, source, sentiment (determined by poll) )
+    -trend data ( key people, trend stats, tools, threads )
     -sort by ( most mentions, most recent, least mentions )
+    -polls ( upvotes / downvotes )
     -trend scores
     -bookmarks
     -settings  
@@ -14,6 +16,11 @@ version 2:
     -trendible AI
     -news section / feed 
     -comments 
+
+
+premium features: 
+    -trend status
+    -tools 
 
 
 user feed: 

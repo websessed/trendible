@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trendible Feed</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900" x-data="trendibleApp()">
+  <div class="max-w-5xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">🔥 Trendible Feed</h1>
+
+    <template x-if="!selectedTrend">
+      <div class="space-y-4">
+        <template x-for="trend in trends" :key="trend.title">
+          <div class="bg-white p-4 rounded-xl shadow cursor-pointer hover:bg-gray-50" @click="selectTrend(trend)">
+            <h2 class="text-xl font-semibold" x-text="trend.title"></h2>
+            <p class="text-sm text-gray-600 mt-1" x-text="trend.description"></p>
+            <div class="mt-2 text-xs text-gray-500">
+              <span x-text="'Mentions: ' + trend.mentions"></span> • 
+              <span x-text="'Sentiment: ' + trend.sentiment"></span> • 
+              <span x-text="'Sources: ' + trend.sources.join(', ')"></span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <template x-if="selectedTrend">
+      <div>
+        <button class="text-blue-500 mb-4" @click="selectedTrend = null">← Back to Feed</button>
+
+        <h2 class="text-2xl font-bold mb-2" x-text="selectedTrend.title"></h2>
+        <p class="text-gray-700 mb-4" x-text="selectedTrend.description"></p>
+
+        <div class="bg-white p-4 rounded-lg shadow mb-4">
+          <h3 class="text-lg font-semibold">📊 Trend Momentum</h3>
+          <p class="text-sm mt-2">Mentions: <strong x-text="selectedTrend.mentions"></strong></p>
+          <p class="text-sm">Sentiment: <strong x-text="selectedTrend.sentiment"></strong></p>
+          <p class="text-sm">Sources: <strong x-text="selectedTrend.sources.join(', ')"></strong></p>
+        </div>
+
+        <div class="mb-4">
+          <nav class="flex space-x-4 border-b pb-2">
+            <template x-for="tab in tabs" :key="tab">
+              <button @click="activeTab = tab" 
+                      class="text-sm px-3 py-1 rounded-t-md"
+                      :class="{'bg-blue-100 text-blue-600': activeTab === tab, 'text-gray-600': activeTab !== tab}">
+                <span x-text="tab"></span>
+              </button>
+            </template>
+          </nav>
+        </div>
+
+        <!-- Key People Tab -->
+        <template x-if="activeTab === 'Key People'">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="lead in leads" :key="lead.username">
+              <div class="bg-white rounded-xl shadow-md p-4 flex flex-col items-center">
+                <img :src="lead.image" alt="Profile" class="w-20 h-20 rounded-full mb-3">
+                <h2 class="font-semibold text-lg" x-text="lead.name"></h2>
+                <p class="text-sm text-gray-500" x-text="lead.location"></p>
+                <p class="text-sm font-medium mt-2 text-center" x-text="lead.title"></p>
+                <p class="text-xs mt-2 text-gray-600 text-center" x-text="lead.bio"></p>
+                <div class="flex space-x-2 mt-3">
+                  <a :href="lead.twitter" target="_blank" class="text-blue-500 text-xs">Twitter</a>
+                  <a :href="lead.linkedin" target="_blank" class="text-blue-700 text-xs">LinkedIn</a>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <!-- Trend Data Tab -->
+        <template x-if="activeTab === 'Trend Data'">
+          <div class="bg-white rounded-xl shadow p-4">
+            <h3 class="font-bold text-lg mb-4">📈 Engagement Timeline</h3>
+            <p class="text-sm text-gray-700 mb-2">Mentions grew by 210% over the last 14 days.</p>
+            <p class="text-sm text-gray-700 mb-2">Top countries: USA 🇺🇸, Brazil 🇧🇷, Nigeria 🇳🇬</p>
+            <p class="text-sm text-gray-700 mb-2">Popular keywords: "AI voiceover", "text to speech", "ElevenLabs", "TikTok narration"</p>
+            <p class="text-sm text-gray-700">First detected on: Jan 7, 2025</p>
+          </div>
+        </template>
+
+        <!-- Tools Tab -->
+        <template x-if="activeTab === 'Tools'">
+          <div class="space-y-3">
+            <div class="bg-white p-4 rounded shadow">
+              <h4 class="font-semibold">🔊 ElevenLabs</h4>
+              <p class="text-sm text-gray-600">Realistic voice AI API. Used in YouTube narration, audiobooks, and TikTok memes.</p>
+              <a href="https://elevenlabs.io" class="text-blue-600 text-xs" target="_blank">Visit Tool →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <h4 class="font-semibold">🧠 Resemble.ai</h4>
+              <p class="text-sm text-gray-600">Create synthetic voice clones and deploy via REST API.</p>
+              <a href="https://www.resemble.ai/" class="text-blue-600 text-xs" target="_blank">Visit Tool →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <h4 class="font-semibold">📚 AI Voiceover Playbook (Gumroad)</h4>
+              <p class="text-sm text-gray-600">A downloadable tutorial showing how to earn with TTS tools + Fiverr.</p>
+              <a href="#" class="text-blue-600 text-xs">Download Guide →</a>
+            </div>
+          </div>
+        </template>
+
+        <!-- Threads Tab -->
+        <template x-if="activeTab === 'Threads'">
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded shadow">
+              <p class="text-sm text-gray-800">🧵 <strong>@aihustler</strong>: “How I made $1.2k with AI voiceovers in 2 weeks using ElevenLabs + TikTok ads.”</p>
+              <a href="https://twitter.com/aihustler/status/123456" class="text-xs text-blue-500" target="_blank">Read thread →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <p class="text-sm text-gray-800">🧠 <strong>@founderbot</strong>: “A founder just raised $50k building an AI narrator for audiobooks. Here’s the stack.”</p>
+              <a href="https://twitter.com/founderbot/status/123789" class="text-xs text-blue-500" target="_blank">Read thread →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+              <p class="text-sm text-gray-800">📖 <strong>Substack by AudioNext</strong>: “The rise of AI voices and what it means for creators”</p>
+              <a href="https://audionext.substack.com/p/ai-voices" class="text-xs text-blue-500" target="_blank">Read article →</a>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </template>
+  </div>
+
+  <script>
+    function trendibleApp() {
+      return {
+        selectedTrend: null,
+        activeTab: 'Key People',
+        tabs: ['Key People', 'Trend Data', 'Tools', 'Threads'],
+
+        trends: [
+          {
+            title: 'AI Voice Actors',
+            description: 'Synthetic voice generation tools are gaining traction in the creator economy.',
+            mentions: 543,
+            sentiment: 'Positive',
+            sources: ['X', 'Product Hunt', 'Substack']
+          },
+          {
+            title: 'Telegram Business Bots',
+            description: 'Telegram automation tools for sales, bookings, and support are trending fast.',
+            mentions: 320,
+            sentiment: 'Rising',
+            sources: ['Reddit', 'X', 'IndieHackers']
+          },
+          {
+            title: 'Digital Companions',
+            description: 'AI-based girlfriends, friends, and mentors are becoming microstartups.',
+            mentions: 210,
+            sentiment: 'Mixed',
+            sources: ['Twitter', 'Gumroad']
+          },
+          {
+            title: 'Hyperlocal SEO Agencies',
+            description: 'Tiny local SEO firms are making serious income by serving niche cities.',
+            mentions: 145,
+            sentiment: 'Positive',
+            sources: ['Facebook Groups', 'YouTube']
+          },
+          {
+            title: 'One-Person SaaS Tools',
+            description: 'Solo devs building profitable B2B tools using nocode + AI.',
+            mentions: 430,
+            sentiment: 'Exploding',
+            sources: ['Product Hunt', 'Hacker News', 'X']
+          }
+        ],
+
+        leads: [
+          {
+            name: "Sophia Daniels",
+            username: "@sophiad",
+            title: "Angel Investor • AI Advisor",
+            location: "San Francisco, USA",
+            bio: "Investor in early-stage AI & biotech. Always open to ideas.",
+            image: "https://i.pravatar.cc/150?img=1",
+            twitter: "https://twitter.com/sophiad",
+            linkedin: "https://linkedin.com/in/sophiad"
+          },
+          {
+            name: "Kwame Okoye",
+            username: "@kwamekrypto",
+            title: "Crypto Whale • Web3 Advisor",
+            location: "Lagos, Nigeria",
+            bio: "Scaling the next billion in crypto. DM for DeFi collabs.",
+            image: "https://i.pravatar.cc/150?img=2",
+            twitter: "https://twitter.com/kwamekrypto",
+            linkedin: "https://linkedin.com/in/kwamekrypto"
+          },
+          {
+            name: "Emily Zhang",
+            username: "@emzventures",
+            title: "Tech Founder • YC Alum",
+            location: "Beijing, China",
+            bio: "Built and sold 2 startups. I invest in female-led teams.",
+            image: "https://i.pravatar.cc/150?img=3",
+            twitter: "https://twitter.com/emzventures",
+            linkedin: "https://linkedin.com/in/emilyzhang"
+          }
+        ],
+
+        selectTrend(trend) {
+          this.selectedTrend = trend;
+          this.activeTab = 'Key People';
+        }
+      };
+    }
+  </script>
+</body>
+</html>
