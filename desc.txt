@@ -18,11 +18,6 @@ version 2:
     -comments 
 
 
-premium features: 
-    -trend status
-    -tools 
-
-
 user feed: 
     -stocks, crypto, airdrops
     -products, services 
@@ -35,11 +30,3 @@ signal sources:
     -tiktok / youtube 
     
 
-
-Tech Stack {
-    React, Zustand, TypeScript 
-    Socket, Toastify
-    Node, Express 
-    Playwright
-    Postgre
-}
