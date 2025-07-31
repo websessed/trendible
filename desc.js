@@ -26,7 +26,7 @@ version 4:
 
 user feed: 
     -stocks, crypto, airdrops
-    -products, services 
+    -products/tools, services 
     -startups 
 
 
