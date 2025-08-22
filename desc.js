@@ -6,6 +6,7 @@ version 1:
     -trend item & metadata (title, desc, mentions, sentiment, sources)
     -trend info (tools, momentum, popular keywords, first detected}
     -sort by (newest, hottest, growing)
+    -share feature
     -user vote
     -trend score algorithm 
     -openAI (summary, analysis)
