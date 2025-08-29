@@ -12,21 +12,19 @@ version 1:
     -sort by (newest, hottest, growing)
     -share feature
     -user vote
-    -trend score algorithm 
+    -trend score algorithm (mentions + sentiment + recency)
     -openAI (summary, analysis)
     -bookmark
     -settings & fomo notifs
     
 
 trend categories: 
-    -stocks, crypto, airdrops
-    -products/tools, services 
-    -startups 
+    -stocks
+    -crypto
+    -products 
 
 
 signal sources: 
-    -reddit 
-    -google finance
     -coinbase
     -product hunt
 
